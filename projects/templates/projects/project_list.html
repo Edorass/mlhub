@@ -1,0 +1,45 @@
+{% extends 'projects/base.html' %}
+{% block title %}Project List{% endblock %}
+
+{% block content %}
+
+<form method="GET" action="{% url 'project_list' %}" class="row mb-4">
+  <div class="col-md-8">
+    <input type="text" name="q" placeholder="Search by title or tech stack..." class="form-control" value="{{ request.GET.q }}">
+  </div>
+  <div class="col-md-4">
+    <select name="sort" class="form-select" onchange="this.form.submit()">
+      <option value="">Sort By</option>
+      <option value="newest" {% if request.GET.sort == 'newest' %}selected{% endif %}>Newest</option>
+      <option value="oldest" {% if request.GET.sort == 'oldest' %}selected{% endif %}>Oldest</option>
+      <option value="title_asc" {% if request.GET.sort == 'title_asc' %}selected{% endif %}>Title A-Z</option>
+      <option value="title_desc" {% if request.GET.sort == 'title_desc' %}selected{% endif %}>Title Z-A</option>
+    </select>
+  </div>
+</form>
+
+<h2 class="mb-4">ML Projects</h2>
+<a href="{% url 'add_project' %}" class="btn btn-success mb-3">+ Add New Project</a>
+
+<ul class="list-group">
+    {% for project in projects %}
+    <li class="list-group-item">
+        <h5>
+            <a href="{% url 'project_detail' project.pk %}">
+                {{ project.title }}
+            </a>
+        </h5>
+        {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="img-thumbnail mb-2" style="max-width: 200px;">
+        {% endif %}
+        <p>{{ project.description }}</p>
+        <small><strong>Tech Stack:</strong> {{ project.tech_stack }}</small><br>
+        <a href="{{ project.github_link }}" target="_blank">GitHub</a>
+        <a href="{% url 'edit_project' project.pk %}" class="btn btn-sm btn-primary">Edit</a>
+        <a href="{% url 'delete_project' project.pk %}" class="btn btn-sm btn-danger">Delete</a>
+    </li>
+    {% empty %}
+    <li class="list-group-item text-muted">No projects added yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'projects/base.html' %}
+{% load form_filters %}
+
+{% block title %}Add Project{% endblock %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">Add New Project</h2>
+
+    <!-- پیام‌های موفقیت/خطا -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- فرم اضافه کردن پروژه -->
+    <form method="post" enctype="multipart/form-data" class="card p-4 shadow">
+        {% csrf_token %}
+
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Title</label>
+            {{ form.title|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_description" class="form-label">Description</label>
+            {{ form.description|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_tech_stack" class="form-label">Tech Stack</label>
+            {{ form.tech_stack|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_github_link" class="form-label">GitHub Link</label>
+            {{ form.github_link|add_class:"form-control" }}
+        </div>
+
+        <div class="mb-3">
+            <label for="id_image" class="form-label">Upload Image</label>
+            {{ form.image|add_class:"form-control" }}
+        </div>
+
+        <!-- پیش‌نمایش عکس -->
+        <div class="mb-3">
+            <img id="imagePreview" class="img-thumbnail d-none" style="max-height: 200px;" alt="Preview">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<!-- جاوااسکریپت برای پیش‌نمایش عکس -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.querySelector('input[type="file"][name="image"]');
+    const preview = document.getElementById("imagePreview");
+
+    if (input) {
+        input.addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove("d-none");
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    }
+});
+</script>
+{% endblock %}
