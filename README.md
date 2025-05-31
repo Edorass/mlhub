@@ -21,8 +21,8 @@ MLHub is a Django-based web application that allows users to upload, view, edit,
 
 > Add screenshots to the `/screenshots` folder if you'd like to showcase your UI.
 
-![Project Screenshot](screenshots/screenshot1.png)
-![Project Screenshot](screenshots/screenshot2.png)
+![Screenshot](mlhub/screenshots/screenshot1.png)
+![Screenshot](mlhub/screenshots/screenshot2.png)
 
 ## 📦 Installation
 
