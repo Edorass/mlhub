@@ -17,12 +17,6 @@ MLHub is a Django-based web application that allows users to upload, view, edit,
 - **Frontend:** HTML, CSS, Bootstrap 5
 - **Database:** SQLite (default, easy to switch to PostgreSQL or others)
 
-## 📸 Screenshots
-
-> Add screenshots to the `/screenshots` folder if you'd like to showcase your UI.
-
-![Screenshot](https://raw.githubusercontent.com/Edorass/mlhub/main/mlhub/screenshots/screenshot1.png)
-![Screenshot](https://raw.githubusercontent.com/Edorass/mlhub/main/mlhub/screenshots/screenshot2.png)
 
 
 ## 📦 Installation
